@@ -29,6 +29,11 @@ fn valid_password2(line : &Line) -> bool {
            (line.password.chars().nth((line.max - 1) as usize) == line.ch.chars().nth(0));
 }
 
+/*
+Day 2, part 1: 483
+Day 2, part 2: 482
+*/
+
 pub fn day2() {
     let contents : String = std::fs::read_to_string("input2.txt")
         .expect("Failed to read file");
