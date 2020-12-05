@@ -6,7 +6,7 @@ fn count_trees(lines : &Vec<String>, xinc : usize, yinc: usize) -> u64 {
         if y > 0 {
             y += 1;
             y %= yinc;
-                continue;
+            continue;
         }
         let rep : usize = line.len();
         if line.chars().nth(x).unwrap() == '#' {
