@@ -25,7 +25,7 @@ fn part2(numbers: &Vec<i32>) {
 
 /*
 Day 1, part 1: 806656
-Day 1, part 1: 230608320
+Day 1, part 2: 230608320
 */
 
 pub fn day1() {
