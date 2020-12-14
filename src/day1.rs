@@ -15,7 +15,7 @@ fn part2(numbers: &Vec<i32>) {
         for j in i..numbers.len() {
             for k in j..numbers.len() {
                 if numbers[i] + numbers[j] + numbers[k] == 2020 {
-                    println!("Day 1, part 1: {}", numbers[i] * numbers[j] * numbers[k]);
+                    println!("Day 1, part 2: {}", numbers[i] * numbers[j] * numbers[k]);
                     return;
                 }
             }
