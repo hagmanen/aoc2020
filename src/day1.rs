@@ -1,4 +1,4 @@
-fn part1(numbers: &Vec<i32>) {
+fn part1(numbers: &[i32]) {
     for i in 0..numbers.len() {
         for j in i..numbers.len() {
             if numbers[i] + numbers[j] == 2020 {
@@ -9,7 +9,7 @@ fn part1(numbers: &Vec<i32>) {
     }
 }
 
-fn part2(numbers: &Vec<i32>) {
+fn part2(numbers: &[i32]) {
     for i in 0..numbers.len() {
         for j in i..numbers.len() {
             for k in j..numbers.len() {

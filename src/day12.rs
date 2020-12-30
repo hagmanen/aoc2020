@@ -16,7 +16,7 @@ fn parse_instructions(lines: std::str::Lines) -> Vec<Instruction> {
             arg: m[2].parse().unwrap(),
         });
     }
-    return result;
+    result
 }
 
 fn forward(dir: i32, length: i32, x: &mut i32, y: &mut i32) {
@@ -48,14 +48,14 @@ fn step1(instruction: &Instruction, x: &mut i32, y: &mut i32, dir: &mut i32) {
     }
 }
 
-fn part1(instructions: &Vec<Instruction>) -> i32 {
+fn part1(instructions: &[Instruction]) -> i32 {
     let mut x: i32 = 0;
     let mut y: i32 = 0;
     let mut dir: i32 = 0;
     for instruction in instructions {
         step1(&instruction, &mut x, &mut y, &mut dir);
     }
-    return x.abs() + y.abs();
+    x.abs() + y.abs()
 }
 
 fn rotate(angle: i32, x: &mut i32, y: &mut i32) {
@@ -101,7 +101,7 @@ fn step2(
     }
 }
 
-fn part2(instructions: &Vec<Instruction>) -> i32 {
+fn part2(instructions: &[Instruction]) -> i32 {
     let mut pos_x: i32 = 0;
     let mut pos_y: i32 = 0;
     let mut way_x: i32 = 10;
@@ -109,7 +109,7 @@ fn part2(instructions: &Vec<Instruction>) -> i32 {
     for instruction in instructions {
         step2(&instruction, &mut pos_x, &mut pos_y, &mut way_x, &mut way_y);
     }
-    return pos_x.abs() + pos_y.abs();
+    pos_x.abs() + pos_y.abs()
 }
 
 /*

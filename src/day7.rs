@@ -24,15 +24,15 @@ fn parse_bag_quantity(line: &str, re_bag_quantity: &regex::Regex) -> Vec<BagQuan
             nr: m[1].parse().unwrap(),
         });
     }
-    return result;
+    result
 }
 
 fn parse_bag(line: &str, re_bag: &regex::Regex, re_bag_quantity: &regex::Regex) -> Bag {
     let m = re_bag.captures(line).unwrap();
-    return Bag {
+    Bag {
         name: m[1].to_string(),
         bags: parse_bag_quantity(&m[2], re_bag_quantity),
-    };
+    }
 }
 
 fn contains_gold(bag: &Bag, bags: &std::collections::HashMap<String, Bag>) -> bool {
@@ -44,7 +44,7 @@ fn contains_gold(bag: &Bag, bags: &std::collections::HashMap<String, Bag>) -> bo
             return true;
         }
     }
-    return false;
+    false
 }
 
 fn contains_bags(bag: &Bag, bags: &std::collections::HashMap<String, Bag>) -> u32 {
@@ -52,7 +52,7 @@ fn contains_bags(bag: &Bag, bags: &std::collections::HashMap<String, Bag>) -> u3
     for b in &bag.bags {
         count += b.nr * contains_bags(&bags[&b.name], &bags);
     }
-    return count;
+    count
 }
 
 /*

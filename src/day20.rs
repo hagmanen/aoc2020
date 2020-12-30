@@ -207,8 +207,8 @@ fn calc_side_length(tiles: &Tiles) -> u32 {
     res
 }
 
-fn match_left(side: u32, image_in: &Image) -> Image {
-    let mut image = image_in.clone();
+fn match_left(side: u32, image_in: &[Vec<bool>]) -> Image {
+    let mut image = image_in.to_owned();
     for _ in 0..4 {
         if calc_left_side(&image) == side {
             return image;
@@ -220,11 +220,11 @@ fn match_left(side: u32, image_in: &Image) -> Image {
         image = flip(&image);
         image = rotate(&image);
     }
-    return Image::new();
+    Image::new()
 }
 
-fn match_up(side: u32, image_in: &Image) -> Image {
-    let mut image = image_in.clone();
+fn match_up(side: u32, image_in: &[Vec<bool>]) -> Image {
+    let mut image = image_in.to_owned();
     for _ in 0..4 {
         if calc_upper_side(&image) == side {
             return image;
@@ -236,13 +236,13 @@ fn match_up(side: u32, image_in: &Image) -> Image {
         image = flip(&image);
         image = rotate(&image);
     }
-    return Image::new();
+    Image::new()
 }
 
 fn next_right_tile(side: u32, tiles: &Tiles) -> (u32, Image) {
     for tile in tiles {
         let image = match_left(side, &tile.1.image);
-        if image.len() > 0 {
+        if !image.is_empty() {
             return (*tile.0, image);
         }
     }
@@ -252,7 +252,7 @@ fn next_right_tile(side: u32, tiles: &Tiles) -> (u32, Image) {
 fn next_lower_tile(side: u32, tiles: &Tiles) -> (u32, Image) {
     for tile in tiles {
         let image = match_up(side, &tile.1.image);
-        if image.len() > 0 {
+        if !image.is_empty() {
             return (*tile.0, image);
         }
     }
@@ -331,8 +331,8 @@ fn match_creature(y: usize, x: usize, image: &mut Image) -> bool {
  #  #  #  #  #  #
 */
 
-fn find_creature(image_in: &Image) -> (u32, Image) {
-    let mut image = image_in.clone();
+fn find_creature(image_in: &[Vec<bool>]) -> (u32, Image) {
+    let mut image = image_in.to_owned();
     let mut m: u32 = 0;
     for y in 0..image.len() - 3 {
         for x in 0..image.len() - 20 {
@@ -344,7 +344,7 @@ fn find_creature(image_in: &Image) -> (u32, Image) {
     (m, image)
 }
 
-fn create_mega_image(full: &Vec<Vec<Image>>) -> Image {
+fn create_mega_image(full: &[Vec<Image>]) -> Image {
     let mut mega_image = Image::new();
     let int_row_size: u32 = full[0][0][0].len() as u32 - 2;
     let row_size: u32 = full[0].len() as u32 * int_row_size;

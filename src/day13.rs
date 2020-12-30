@@ -7,10 +7,10 @@ fn parse_busses(line: &str) -> Vec<u64> {
             result.push(0);
         }
     }
-    return result;
+    result
 }
 
-fn part1(time: u64, busses: &Vec<u64>) -> u64 {
+fn part1(time: u64, busses: &[u64]) -> u64 {
     let mut first_dep = u64::MAX;
     let mut first_bus = 0;
     for bus in busses {
@@ -22,15 +22,14 @@ fn part1(time: u64, busses: &Vec<u64>) -> u64 {
             }
         }
     }
-    return first_bus * first_dep;
+    first_bus * first_dep
 }
 
-fn part2(busses: &Vec<u64>) -> u64 {
+fn part2(busses: &[u64]) -> u64 {
     let mut timestamp: u64 = 0;
     let mut inc: u64 = 1;
-    for offset in 0..(busses.len()) {
-        let bus: u64 = busses[offset];
-        if bus > 0 {
+    for (offset, bus) in busses.iter().enumerate() {
+        if *bus > 0 {
             loop {
                 timestamp += inc;
                 if (timestamp + (offset as u64)) % bus == 0 {
@@ -40,8 +39,7 @@ fn part2(busses: &Vec<u64>) -> u64 {
             inc *= bus
         }
     }
-
-    return timestamp;
+    timestamp
 }
 
 /*

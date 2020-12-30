@@ -75,16 +75,14 @@ fn parse_term(
     pos: usize,
     prio_add: bool,
 ) -> Result<(ParseNode, usize), String> {
-    let c: &LexItem = tokens.get(pos).ok_or(String::from(
-        "Unexpected end of input, expected paren or number",
-    ))?;
+    let c = tokens.get(pos);
     match c {
-        LexItem::Num(n) => {
+        Some(LexItem::Num(n)) => {
             let mut node = ParseNode::new();
             node.entry = GrammarItem::Number(*n);
             Ok((node, pos + 1))
         }
-        LexItem::Paren(c) => {
+        Some(LexItem::Paren(c)) => {
             match c {
                 '(' | ')' => {
                     parse_expr(tokens, pos + 1, prio_add).and_then(|(node, next_pos)| {

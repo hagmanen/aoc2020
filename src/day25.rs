@@ -26,7 +26,7 @@ fn part1(key1: u64, key2: u64) -> u64 {
 
 /*
 Day 25, part 1: 354320
-Day 25, part 2:
+Day 25, part 2: Work hard
 */
 
 pub fn day25() {
@@ -37,5 +37,5 @@ pub fn day25() {
         "Day 25, part 1: {}",
         part1(keys.next().unwrap(), keys.next().unwrap())
     );
-    println!("Day 25, part 2: {}", 0);
+    println!("Day 25, part 2: Work hard");
 }

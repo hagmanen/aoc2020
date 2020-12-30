@@ -37,7 +37,7 @@ fn parse_program(text: String) -> Vec<Instruction> {
             arg: arg.parse().unwrap(),
         });
     }
-    return program;
+    program
 }
 
 fn add_int(u: &mut usize, i: &i32) {
@@ -48,7 +48,7 @@ fn add_int(u: &mut usize, i: &i32) {
     }
 }
 
-fn step(program: &Vec<Instruction>, pos: &mut usize, acc: &mut i32) {
+fn step(program: &[Instruction], pos: &mut usize, acc: &mut i32) {
     let inst = &program[*pos];
     match inst.op {
         Operation::ACC => {
@@ -60,7 +60,7 @@ fn step(program: &Vec<Instruction>, pos: &mut usize, acc: &mut i32) {
     }
 }
 
-fn run_program(program: &Vec<Instruction>) -> (usize, i32) {
+fn run_program(program: &[Instruction]) -> (usize, i32) {
     let mut pos: usize = 0;
     let mut acc: i32 = 0;
     let mut visited: std::collections::HashSet<usize> = std::collections::HashSet::new();
@@ -68,7 +68,7 @@ fn run_program(program: &Vec<Instruction>) -> (usize, i32) {
         visited.insert(pos);
         step(&program, &mut pos, &mut acc);
     }
-    return (pos, acc);
+    (pos, acc)
 }
 
 /*

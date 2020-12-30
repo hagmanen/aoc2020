@@ -7,10 +7,10 @@ fn parse_grid(lines: std::str::Lines) -> Vec<Vec<char>> {
         }
         result.push(row);
     }
-    return result;
+    result
 }
 
-fn occupied_in_dir(grid: &Vec<Vec<char>>, x: i32, y: i32, dx: i32, dy: i32, part: u32) -> u32 {
+fn occupied_in_dir(grid: &[Vec<char>], x: i32, y: i32, dx: i32, dy: i32, part: u32) -> u32 {
     if x < 0
         || x >= grid[0].len() as i32
         || y < 0
@@ -25,18 +25,18 @@ fn occupied_in_dir(grid: &Vec<Vec<char>>, x: i32, y: i32, dx: i32, dy: i32, part
     if part == 1 {
         return 0;
     }
-    return occupied_in_dir(grid, x + dx, y + dy, dx, dy, part);
+    occupied_in_dir(grid, x + dx, y + dy, dx, dy, part)
 }
 
-fn occupied_neibours(grid: &Vec<Vec<char>>, x: i32, y: i32, part: u32) -> u32 {
-    return occupied_in_dir(grid, x, y - 1, 0, -1, part)
+fn occupied_neibours(grid: &[Vec<char>], x: i32, y: i32, part: u32) -> u32 {
+    occupied_in_dir(grid, x, y - 1, 0, -1, part)
         + occupied_in_dir(grid, x, y + 1, 0, 1, part)
         + occupied_in_dir(grid, x - 1, y - 1, -1, -1, part)
         + occupied_in_dir(grid, x - 1, y, -1, 0, part)
         + occupied_in_dir(grid, x - 1, y + 1, -1, 1, part)
         + occupied_in_dir(grid, x + 1, y - 1, 1, -1, part)
         + occupied_in_dir(grid, x + 1, y, 1, 0, part)
-        + occupied_in_dir(grid, x + 1, y + 1, 1, 1, part);
+        + occupied_in_dir(grid, x + 1, y + 1, 1, 1, part)
 }
 
 fn permute_grid(grid: Vec<Vec<char>>, part: u32) -> (bool, Vec<Vec<char>>) {
@@ -56,10 +56,10 @@ fn permute_grid(grid: Vec<Vec<char>>, part: u32) -> (bool, Vec<Vec<char>>) {
             }
         }
     }
-    return (mutated, result);
+    (mutated, result)
 }
 
-fn part(text: &String, part: u32) {
+fn part(text: &str, part: u32) {
     let mut t = (true, parse_grid(text.lines()));
     while t.0 {
         t = permute_grid(t.1, part);

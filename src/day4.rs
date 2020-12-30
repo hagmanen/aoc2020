@@ -13,8 +13,8 @@ cid (Country ID) - ignored, missing or not.
 
 fn valid_int(value: &str, min: i32, max: i32) -> bool {
     match value.parse::<i32>() {
-        Ok(n) => return min <= n && n <= max,
-        Err(_) => return false,
+        Ok(n) => min <= n && n <= max,
+        Err(_) => false,
     }
 }
 
@@ -23,9 +23,9 @@ fn valid_length(value: &str, min_cm: i32, max_cm: i32, min_in: i32, max_in: i32)
     let num = &value[..l - 2];
     let unit = &value[l - 2..];
     match unit {
-        "cm" => return valid_int(num, min_cm, max_cm),
-        "in" => return valid_int(num, min_in, max_in),
-        _ => return false,
+        "cm" => valid_int(num, min_cm, max_cm),
+        "in" => valid_int(num, min_in, max_in),
+        _ => false,
     }
 }
 
@@ -41,26 +41,26 @@ fn valid_hair(value: &str) -> bool {
             _ => return false,
         }
     }
-    return true;
+    true
 }
 
 fn valid_eye(value: &str) -> bool {
     match value {
-        "amb" => return true,
-        "blu" => return true,
-        "brn" => return true,
-        "gry" => return true,
-        "grn" => return true,
-        "hzl" => return true,
-        "oth" => return true,
-        _ => return false,
+        "amb" => true,
+        "blu" => true,
+        "brn" => true,
+        "gry" => true,
+        "grn" => true,
+        "hzl" => true,
+        "oth" => true,
+        _ => false,
     }
 }
 
 fn valid_passid(value: &str) -> bool {
     match value.parse::<i64>() {
-        Ok(_) => return value.len() == 9,
-        Err(_) => return false,
+        Ok(_) => value.len() == 9,
+        Err(_) => false,
     }
 }
 
@@ -82,7 +82,7 @@ fn valid_passport2(passport: String) -> bool {
             _ => println!("Invalid field: {:?}", field_id),
         }
     }
-    return byr && iyr && eyr && hgt && hcl && ecl && pid;
+    byr && iyr && eyr && hgt && hcl && ecl && pid
 }
 
 fn valid_passport1(passport: String) -> bool {
@@ -102,7 +102,7 @@ fn valid_passport1(passport: String) -> bool {
             _ => println!("Invalid field: {:?}", field_id),
         }
     }
-    return byr && iyr && eyr && hgt && hcl && ecl && pid;
+    byr && iyr && eyr && hgt && hcl && ecl && pid
 }
 
 /*

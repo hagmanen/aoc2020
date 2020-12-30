@@ -1,13 +1,13 @@
 fn ticket_seat_id(line: &str, occupied: &mut std::collections::BTreeSet<u32>) -> u32 {
     let mut id: u32 = 0;
     for c in line.chars() {
-        id = id << 1;
+        id <<= 1;
         if c == 'B' || c == 'R' {
             id += 1;
         }
     }
     occupied.insert(id);
-    return id;
+    id
 }
 
 /*

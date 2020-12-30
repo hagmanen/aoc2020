@@ -6,10 +6,10 @@ fn is_valid(nr: u64, preamble: &std::collections::VecDeque<&u64>) -> bool {
             }
         }
     }
-    return false;
+    false
 }
 
-fn validate_numbers(numbers: &Vec<u64>) -> usize {
+fn validate_numbers(numbers: &[u64]) -> usize {
     let mut i: usize = 0;
     let mut preamble = std::collections::VecDeque::new();
     while i < 25 {
@@ -25,7 +25,7 @@ fn validate_numbers(numbers: &Vec<u64>) -> usize {
         preamble.push_back(current);
         preamble.pop_front();
     }
-    return i;
+    i
 }
 
 /*

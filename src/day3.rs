@@ -1,4 +1,4 @@
-fn count_trees(lines: &Vec<String>, xinc: usize, yinc: usize) -> u64 {
+fn count_trees(lines: &[String], xinc: usize, yinc: usize) -> u64 {
     let mut x: usize = 0;
     let mut y: usize = 0;
     let mut trees: u64 = 0;
@@ -17,7 +17,7 @@ fn count_trees(lines: &Vec<String>, xinc: usize, yinc: usize) -> u64 {
         y += 1;
         y %= yinc;
     }
-    return trees;
+    trees
 }
 
 fn lines_to_vector(lines: std::str::Lines) -> Vec<String> {
@@ -25,7 +25,7 @@ fn lines_to_vector(lines: std::str::Lines) -> Vec<String> {
     for line in lines {
         result.push(line.to_string());
     }
-    return result;
+    result
 }
 
 /*

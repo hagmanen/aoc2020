@@ -20,18 +20,18 @@ fn parse_lines(lines: std::str::Lines) -> Vec<Line> {
             password: m[4].to_string(),
         });
     }
-    return result;
+    result
 }
 
 fn valid_password(line: &Line) -> bool {
     let re = Regex::new(&line.ch).unwrap();
     let count = re.find_iter(&line.password).count();
-    return line.min as usize <= count && count <= line.max as usize;
+    line.min as usize <= count && count <= line.max as usize
 }
 
 fn valid_password2(line: &Line) -> bool {
-    return (line.password.chars().nth((line.min - 1) as usize) == line.ch.chars().nth(0))
-        ^ (line.password.chars().nth((line.max - 1) as usize) == line.ch.chars().nth(0));
+    (line.password.chars().nth((line.min - 1) as usize) == line.ch.chars().next())
+        ^ (line.password.chars().nth((line.max - 1) as usize) == line.ch.chars().next())
 }
 
 /*
