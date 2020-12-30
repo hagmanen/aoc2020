@@ -1,4 +1,3 @@
-
 /*
 Day 6, part 1: 6457
 Day 6, part 2: 3260
@@ -6,9 +5,9 @@ Day 6, part 2: 3260
 
 pub fn day6() {
     let contents = std::fs::read_to_string("input6.txt").expect("Failed to read file");
-    
+
     let mut answers = std::collections::BTreeSet::new();
-    let mut sum : usize = 0;
+    let mut sum: usize = 0;
     for line in contents.lines() {
         if line.is_empty() {
             sum += answers.len();

@@ -8,25 +8,30 @@ struct Line {
 }
 
 fn parse_lines(lines: std::str::Lines) -> Vec<Line> {
-    let mut result : Vec<Line> = Vec::new();
+    let mut result: Vec<Line> = Vec::new();
     // 3-4 j: tjjj
     let rg = Regex::new(r"(\d+)-(\d+) ([a-z]): (.*)").unwrap();
     for line in lines {
         let m = rg.captures(line).unwrap();
-        result.push(Line {min: m[1].parse().unwrap(), max: m[2].parse().unwrap(), ch: m[3].to_string(), password: m[4].to_string()});
+        result.push(Line {
+            min: m[1].parse().unwrap(),
+            max: m[2].parse().unwrap(),
+            ch: m[3].to_string(),
+            password: m[4].to_string(),
+        });
     }
     return result;
 }
 
-fn valid_password(line : &Line) -> bool {
+fn valid_password(line: &Line) -> bool {
     let re = Regex::new(&line.ch).unwrap();
     let count = re.find_iter(&line.password).count();
     return line.min as usize <= count && count <= line.max as usize;
 }
 
-fn valid_password2(line : &Line) -> bool {
-    return (line.password.chars().nth((line.min - 1) as usize) == line.ch.chars().nth(0)) ^
-           (line.password.chars().nth((line.max - 1) as usize) == line.ch.chars().nth(0));
+fn valid_password2(line: &Line) -> bool {
+    return (line.password.chars().nth((line.min - 1) as usize) == line.ch.chars().nth(0))
+        ^ (line.password.chars().nth((line.max - 1) as usize) == line.ch.chars().nth(0));
 }
 
 /*
@@ -35,10 +40,9 @@ Day 2, part 2: 482
 */
 
 pub fn day2() {
-    let contents : String = std::fs::read_to_string("input2.txt")
-        .expect("Failed to read file");
+    let contents: String = std::fs::read_to_string("input2.txt").expect("Failed to read file");
     let lines_raw: std::str::Lines = contents.lines();
-    let lines : Vec<Line> = parse_lines(lines_raw);
+    let lines: Vec<Line> = parse_lines(lines_raw);
 
     let mut valid = 0;
     for line in &lines {
@@ -56,4 +60,3 @@ pub fn day2() {
     }
     println!("Day 2, part 2: {}", valid);
 }
-

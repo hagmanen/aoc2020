@@ -1,4 +1,3 @@
-
 fn part1(numbers: &Vec<i32>) {
     for i in 0..numbers.len() {
         for j in i..numbers.len() {
@@ -29,9 +28,11 @@ Day 1, part 2: 230608320
 */
 
 pub fn day1() {
-    let contents = std::fs::read_to_string("input1.txt")
-        .expect("Failed to read file");
-    let numbers : Vec<i32> = contents.lines().map(|s| s.parse().expect("parse error")).collect();
+    let contents = std::fs::read_to_string("input1.txt").expect("Failed to read file");
+    let numbers: Vec<i32> = contents
+        .lines()
+        .map(|s| s.parse().expect("parse error"))
+        .collect();
     part1(&numbers);
     part2(&numbers);
 }

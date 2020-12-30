@@ -199,8 +199,8 @@ fn first_corner(tiles: &Tiles, occurance: &std::collections::HashMap<u32, u32>) 
 }
 
 fn calc_side_length(tiles: &Tiles) -> u32 {
-    let mut res : u32 = 1;
-    let nr_of_tiles :u32 = tiles.iter().count() as u32;
+    let mut res: u32 = 1;
+    let nr_of_tiles: u32 = tiles.iter().count() as u32;
     while res * res < nr_of_tiles {
         res += 1;
     }
@@ -239,7 +239,7 @@ fn match_up(side: u32, image_in: &Image) -> Image {
     return Image::new();
 }
 
-fn next_right_tile(side : u32, tiles: &Tiles) -> (u32, Image) {
+fn next_right_tile(side: u32, tiles: &Tiles) -> (u32, Image) {
     for tile in tiles {
         let image = match_left(side, &tile.1.image);
         if image.len() > 0 {
@@ -249,7 +249,7 @@ fn next_right_tile(side : u32, tiles: &Tiles) -> (u32, Image) {
     panic!("No match");
 }
 
-fn next_lower_tile(side : u32, tiles: &Tiles) -> (u32, Image) {
+fn next_lower_tile(side: u32, tiles: &Tiles) -> (u32, Image) {
     for tile in tiles {
         let image = match_up(side, &tile.1.image);
         if image.len() > 0 {
@@ -260,7 +260,7 @@ fn next_lower_tile(side : u32, tiles: &Tiles) -> (u32, Image) {
 }
 
 fn match_creature(y: usize, x: usize, image: &mut Image) -> bool {
-    if !image[y][x+18 as usize] {
+    if !image[y][x + 18 as usize] {
         return false;
     }
     if !image[y + 1 as usize][x] {
@@ -306,7 +306,7 @@ fn match_creature(y: usize, x: usize, image: &mut Image) -> bool {
         return false;
     }
 
-    image[y][x+18 as usize] = false;
+    image[y][x + 18 as usize] = false;
     image[y + 1 as usize][x] = false;
     image[y + 1 as usize][x + 5 as usize] = false;
     image[y + 1 as usize][x + 6 as usize] = false;
@@ -324,19 +324,19 @@ fn match_creature(y: usize, x: usize, image: &mut Image) -> bool {
     true
 }
 /*
-                  # 
+                  #
 012345678901234567890
 #    ##    ##    ###
 012345678901234567890
- #  #  #  #  #  #   
+ #  #  #  #  #  #
 */
 
-fn find_creature(image_in : &Image) -> (u32, Image){
+fn find_creature(image_in: &Image) -> (u32, Image) {
     let mut image = image_in.clone();
-    let mut m :u32 = 0;
-    for y in 0..image.len()-3 {
-        for x in 0..image.len()-20 {
-            if match_creature(y, x, &mut image){
+    let mut m: u32 = 0;
+    for y in 0..image.len() - 3 {
+        for x in 0..image.len() - 20 {
+            if match_creature(y, x, &mut image) {
                 m += 1;
             }
         }
@@ -346,8 +346,8 @@ fn find_creature(image_in : &Image) -> (u32, Image){
 
 fn create_mega_image(full: &Vec<Vec<Image>>) -> Image {
     let mut mega_image = Image::new();
-    let int_row_size : u32 = full[0][0][0].len() as u32 - 2;
-    let row_size : u32 = full[0].len() as u32 * int_row_size;
+    let int_row_size: u32 = full[0][0][0].len() as u32 - 2;
+    let row_size: u32 = full[0].len() as u32 * int_row_size;
     for y in 0..row_size {
         let mut mega_row = Vec::new();
         for x in 0..row_size {
@@ -355,7 +355,10 @@ fn create_mega_image(full: &Vec<Vec<Image>>) -> Image {
             let y_p = y % int_row_size;
             let x_i = x / int_row_size;
             let x_p = x % int_row_size;
-            mega_row.push(full[y_i as usize][x_i as usize][y_p  as usize+ 1 as usize][x_p as usize + 1 as usize]);
+            mega_row.push(
+                full[y_i as usize][x_i as usize][y_p as usize + 1 as usize]
+                    [x_p as usize + 1 as usize],
+            );
         }
         mega_image.push(mega_row);
     }
@@ -373,8 +376,9 @@ fn part2(tiles_in: &Tiles) -> u64 {
     }
     let first_corner = first_corner(&tiles, &occurance);
     let mut first_image = tiles.get(&first_corner).unwrap().image.clone();
-    while !(*occurance.get(&calc_upper_side(&first_image)).unwrap() == 1 &&
-            *occurance.get(&calc_left_side(&first_image)).unwrap() == 1 ) {
+    while !(*occurance.get(&calc_upper_side(&first_image)).unwrap() == 1
+        && *occurance.get(&calc_left_side(&first_image)).unwrap() == 1)
+    {
         first_image = rotate(&first_image);
     }
     let mut full_image = Vec::new();
@@ -401,13 +405,13 @@ fn part2(tiles_in: &Tiles) -> u64 {
 
     let mut mega_image = create_mega_image(&full_image);
     for _ in 0..4 {
-        let  t1 = find_creature(&mega_image);
+        let t1 = find_creature(&mega_image);
         if t1.0 > 0 {
             mega_image = t1.1;
             break;
         }
         mega_image = flip(&mega_image);
-        let  t2 = find_creature(&mega_image);
+        let t2 = find_creature(&mega_image);
         if t2.0 > 0 {
             mega_image = t2.1;
             break;
@@ -416,7 +420,7 @@ fn part2(tiles_in: &Tiles) -> u64 {
         mega_image = rotate(&mega_image);
     }
 
-    let mut count : u64 = 0;
+    let mut count: u64 = 0;
     for row in mega_image {
         for pix in row {
             if pix {
